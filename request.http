@@ -1,0 +1,25 @@
+### Create accounts
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name":"Elon Musk"
+}
+
+
+### Send Money
+POST http://localhost:3000/transactions
+Content-Type: application/json
+
+{"senderId": 1, "receiverId": 2, "amount": 9000}
+
+
+### Get Balance user 1
+GET http://localhost:3000/users/1/balance
+
+### Get Balance user 2
+GET http://localhost:3000/users/2/balance
+
+
+### Get transactions
+GET http://localhost:3000/users/1/transactions

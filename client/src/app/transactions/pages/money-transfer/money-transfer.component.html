@@ -1,0 +1,51 @@
+    <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="currency">Currency:</label>
+        <select id="currency" formControlName="currency">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="locale">Locale:</label>
+        <select id="locale" formControlName="locale">
+          <option value="en-US">English (US)</option>
+          <option value="fr-FR">Français (France)</option>
+          <option value="de-DE">Deutsch (Deutschland)</option>
+          <option value="ja-JP">日本語 (日本)</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="sender">Sender:</label>
+        <select id="sender" formControlName="senderId" (change)="updateSenderBalance()">
+          <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
+        </select>
+        <p *ngIf="senderBalance !== null">
+          Balance: {{formatCurrency(senderBalance)}}
+        </p>
+      </div>
+
+      <div>
+        <label for="receiver">Receiver:</label>
+        <select id="receiver" formControlName="receiverId" (change)="updateReceiverBalance()">
+          <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
+        </select>
+        <p *ngIf="receiverBalance !== null">
+          Balance: {{formatCurrency(receiverBalance)}}
+        </p>
+      </div>
+
+      <div>
+        <label for="amount">Amount:</label>
+        <input id="amount" type="number" formControlName="amount" step="0.01">
+      </div>
+
+      <button type="submit" [disabled]="transferForm.invalid">Send Money</button>
+    </form>
+
+    <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
+    <p *ngIf="successMessage" class="success">{{successMessage}}</p>
